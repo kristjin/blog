@@ -1,17 +1,23 @@
+
 {% macro render_post(post) %}
-<div class="row">
+
+  <div class="row">
+
     <div class="col-md-2 text-right metadata">
-        <ul class="list-unstyled">
-            <li>
-                {{ post.datetime | dateformat("%d/%m/%y") }}
-            </li>
-        </ul>
+      <ul class="list-unstyled">
+        <li>
+          {{ post.datetime | dateformat("%d/%m/%y") }}
+        </li>
+      </ul>
     </div>
+
     <div class="col-md-10">
-        <h1>
-            {{ post.title }}
-        </h1>
-        {{ post.content | safe }}
+      <h1>
+        <a href="{{ url_for('view_post', pid=post.id-1) }}">{{ post.title }}</a>
+      </h1>
+      {{ post.content | safe }}
     </div>
-</div>
+
+  </div>
+
 {% endmacro %}
