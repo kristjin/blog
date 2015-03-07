@@ -1,4 +1,3 @@
-
 {% macro render_post(post) %}
 
   <div class="row">
@@ -8,12 +7,15 @@
         <li>
           {{ post.datetime | dateformat("%d/%m/%y") }}
         </li>
+        <li>
+          <a href="/post/{{ post.id }}/edit">Edit Post</a>
+        </li>
       </ul>
     </div>
 
     <div class="col-md-10">
       <h1>
-        <a href="{{ url_for('view_post', pid=post.id-1) }}">{{ post.title }}</a>
+        <a href="{{ url_for('view_post', pid=post.id) }}">{{ post.title }}</a>
       </h1>
       {{ post.content | safe }}
     </div>

@@ -20,6 +20,23 @@ def add_post_post():
 def add_post_get():
     return render_template("add_post.html")
 
+
+@app.route("/post/<int:pid>/edit", methods=["POST"])
+def edit_post_post(pid):
+    post = session.query(Post).get(pid)
+    post.title = request.form["title"]
+    post.content = mistune.markdown(request.form["content"])
+    session.commit()
+    return redirect(url_for("view_post", pid=pid))
+
+
+@app.route("/post/<int:pid>/edit", methods=["GET"])
+def edit_post_get(pid):
+    post = session.query(Post).get(pid)
+    return render_template("edit_post.html",
+                           post=post)
+
+
 @app.route("/post/")
 @app.route("/post/<int:pid>")
 def view_post(pid=0):
@@ -29,8 +46,7 @@ def view_post(pid=0):
     has_next = pid < count - 1  # because it's a zer0 index
     has_prev = pid > 0
 
-    posts = session.query(Post)
-    post = posts[pid]
+    post = session.query(Post).get(pid)
 
     return render_template("view_post.html",
                            pid=pid,
