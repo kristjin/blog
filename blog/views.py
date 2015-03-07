@@ -55,6 +55,22 @@ def view_post(pid=0):
                            has_prev=has_prev)
 
 
+@app.route('/post/<int:pid>/delete', methods=["GET"])
+def delete_post_get(pid):
+    post = session.query(Post).get(pid)
+    return render_template("delete_post.html",
+                           pid=pid,
+                           post=post)
+
+
+@app.route('/post/<int:pid>/delete', methods=["POST"])
+def delete_post_post(pid):
+    post = session.query(Post).get(pid)
+    session.delete(post)
+    session.commit()
+    return redirect(url_for("posts"))
+
+
 @app.route("/")
 @app.route("/page/<int:page>")
 def posts(page=1, paginate_by=10):
