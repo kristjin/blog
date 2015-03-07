@@ -1,4 +1,6 @@
 env
-loadkey.sh
+keys.py
 *.pyc
 .idea
+
+blog/static/javascript/bootbox.min.js

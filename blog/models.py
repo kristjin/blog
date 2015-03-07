@@ -1,8 +1,18 @@
+print("NOW IMPORTING: "+__name__)
+
 import datetime
 
 from sqlalchemy import Column, Integer, String, Text, DateTime
-
+from flask.ext.login import UserMixin
 from .database import Base, engine
+
+class User(Base, UserMixin):
+    __tablename__ = "users"
+
+    id = Column(Integer, primary_key=True)
+    name = Column(String(128))
+    email = Column(String(128), unique=True)
+    password = Column(String(128))
 
 class Post(Base):
     __tablename__ = "posts"
