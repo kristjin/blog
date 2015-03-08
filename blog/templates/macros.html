@@ -5,7 +5,10 @@
     <div class="col-md-2 text-right metadata">
       <ul class="list-unstyled">
         <li>
-          {{ post.datetime | dateformat("%d/%m/%y") }}
+          {{ post.datetime | dateformat("%m/%d/%y") }}
+        </li>
+        <li>
+          Author: {{ post.author.name }}
         </li>
         <li>
           <a href="/post/{{ post.id }}/edit">Edit Post</a>

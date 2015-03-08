@@ -2,7 +2,8 @@ print("NOW IMPORTING: "+__name__)
 
 import datetime
 
-from sqlalchemy import Column, Integer, String, Text, DateTime
+from sqlalchemy import Column, Integer, String, Text, DateTime, ForeignKey
+from sqlalchemy.orm import relationship
 from flask.ext.login import UserMixin
 from .database import Base, engine
 
@@ -13,6 +14,7 @@ class User(Base, UserMixin):
     name = Column(String(128))
     email = Column(String(128), unique=True)
     password = Column(String(128))
+    posts = relationship("Post", backref="author")
 
 class Post(Base):
     __tablename__ = "posts"
@@ -21,5 +23,6 @@ class Post(Base):
     title = Column(String(1024))
     content = Column(Text)
     datetime = Column(DateTime, default=datetime.datetime.now)
+    author_id = Column(Integer, ForeignKey('users.id'))
 
 Base.metadata.create_all(engine)
