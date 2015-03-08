@@ -32,6 +32,21 @@ class TestViews(unittest.TestCase):
         self.process.start()
         time.sleep(1)
 
+    def testLoginCorrect(self):
+        self.browser.visit("http://0.0.0.0:8080/login")
+        self.browser.fill("email", "alice@example.com")
+        self.browser.fill("password", "test")
+        button = self.browser.find_by_css("button[type=submit]")
+        button.click()
+        self.assertEqual(self.browser.url, u"http://0.0.0.0:8080/")
+
+    def testLoginIncorrect(self):
+        self.browser.visit("http://0.0.0.0:8080/login")
+        self.browser.fill("email", "bob@example.com")
+        self.browser.fill("password", "test")
+        button = self.browser.find_by_css("button[type=submit]")
+        button.click()
+        self.assertEqual(self.browser.url, u"http://0.0.0.0:8080/login")
 
     def tearDown(self):
         """ Test teardown """

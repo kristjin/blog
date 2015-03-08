@@ -2,5 +2,5 @@ env
 config.py
 *.pyc
 .idea
-
+ghostdriver.log
 blog/static/javascript/bootbox.min.js
