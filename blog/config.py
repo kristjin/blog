@@ -1,9 +1,10 @@
-print("NOW IMPORTING: "+__name__)
-from . import keys
-
-key = keys.BLOGFUL_SECRET_KEY
-
 class DevelopmentConfig(object):
     SQLALCHEMY_DATABASE_URI = "postgresql://action:action@localhost:5432/blogful"
     DEBUG = True
-    SECRET_KEY = key
+    SECRET_KEY = "a661XTGadfa&@BN&$@4g25uh%@#nhwrtw35mlpo"
+
+
+class TestingConfig(object):
+    SQLALCHEMY_DATABASE_URI = "postgresql://action:action@localhost:5432/blogful-test"
+    DEBUG = False
+    SECRET_KEY = "Not secret"
