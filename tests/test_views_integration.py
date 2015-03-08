@@ -21,8 +21,8 @@ class TestViews(unittest.TestCase):
         Base.metadata.create_all(engine)
 
         # Create an example user
-        self.user = models.User(name="Alice", email="alice@example.com",
-                                password=generate_password_hash("test"))
+        self.user = models.User(name="Shim Sham", email="bill@gat.es",
+                                password=generate_password_hash("1234"))
         session.add(self.user)
         session.commit()
 
@@ -49,6 +49,21 @@ class TestViews(unittest.TestCase):
         self.assertEqual(post.title, "Test Post")
         self.assertEqual(post.content, "<p>Test content</p>\n")
         self.assertEqual(post.author, self.user)
+
+
+    def testViewPost(self):
+        self.simulate_login()
+
+        response = self.client.get("/post/26")
+
+        self.assertEqual(response.status_code, 500)
+        post = session.query(models.Post).get(26)
+
+        self.assertEqual(len(post), 1)
+        self.assertEqual(post.title, "Abba")
+        self.assertEqual(post.content, "<p>I'm a dancing queen.</p>\n")
+        self.assertEqual(post.author, self.user)
+
 
 
     def tearDown(self):
