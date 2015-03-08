@@ -69,7 +69,8 @@ def edit_post_post(pid):
 def edit_post_get(pid):
     post = session.query(Post).get(pid)
     return render_template("edit_post.html",
-                           post=post)
+                           post=post,
+                           current_user=current_user)
 
 
 @app.route("/post/")
@@ -87,7 +88,8 @@ def view_post(pid=0):
                            pid=pid,
                            post=post,
                            has_next=has_next,
-                           has_prev=has_prev)
+                           has_prev=has_prev,
+                           current_user=current_user)
 
 
 @app.route('/post/<int:pid>/delete', methods=["GET"])
@@ -96,7 +98,8 @@ def delete_post_get(pid):
     post = session.query(Post).get(pid)
     return render_template("delete_post.html",
                            pid=pid,
-                           post=post)
+                           post=post,
+                           current_user=current_user)
 
 
 @app.route('/post/<int:pid>/delete', methods=["POST"])
@@ -132,4 +135,5 @@ def posts(page=1, paginate_by=10):
                            has_next=has_next,
                            has_prev=has_prev,
                            page=page,
-                           total_pages=total_pages)
+                           total_pages=total_pages,
+                           current_user=current_user)

@@ -1,4 +1,4 @@
-{% macro render_post(post) %}
+{% macro render_post(post, current_user) %}
 
   <div class="row">
 
@@ -7,15 +7,22 @@
         <li>
           {{ post.datetime | dateformat("%m/%d/%y") }}
         </li>
-        <li>
-          Author: {{ post.author.name }}
-        </li>
-        <li>
-          <a href="/post/{{ post.id }}/edit">Edit Post</a>
-        </li>
-        <li>
-          <a href="/post/{{ post.id }}/delete">Delete</a>
-        </li>
+        {% if post.author.name %}
+          <li>
+            Author: {{ post.author.name }}
+          </li>
+        {% with owner_auth = (post.author.name == current_user.name) %}
+        {% if owner_auth %}
+          <li>
+            <a href="/post/{{ post.id }}/edit">Edit Post</a>
+          </li>
+          <li>
+            <a href="/post/{{ post.id }}/delete">Delete</a>
+          </li>
+        {% endif %}
+        {% endwith %}
+        {% endif %}
+
       </ul>
     </div>
 
