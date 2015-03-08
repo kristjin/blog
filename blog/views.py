@@ -91,6 +91,7 @@ def view_post(pid=0):
 
 
 @app.route('/post/<int:pid>/delete', methods=["GET"])
+@login_required
 def delete_post_get(pid):
     post = session.query(Post).get(pid)
     return render_template("delete_post.html",
@@ -99,6 +100,7 @@ def delete_post_get(pid):
 
 
 @app.route('/post/<int:pid>/delete', methods=["POST"])
+@login_required
 def delete_post_post(pid):
     post = session.query(Post).get(pid)
     session.delete(post)
